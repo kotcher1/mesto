@@ -5,3 +5,16 @@
   max-width: 880px;
   margin: 47px auto 0;
 }
+
+@media screen and (max-width: 991px) {
+  .places {
+    max-width: 581px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .places {
+    flex-direction: column;
+    align-items: center;
+  }
+}
