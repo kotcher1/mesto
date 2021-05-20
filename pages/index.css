@@ -14,3 +14,9 @@
 @import url(../blocks/profile/__name-line/profile__name-line.css);
 @import url(../blocks/profile/__plus-icon/profile__plus-icon.css);
 @import url(../blocks/profile/__profession/profile__profession.css);
+@import url(../blocks/places/places.css);
+@import url(../blocks/places/__card/places__card.css);
+@import url(../blocks/places/__image/places__image.css);
+@import url(../blocks/places/__like/places__like.css);
+@import url(../blocks/places/__name-line/places__name-line.css);
+@import url(../blocks/places/__name/places__name.css);
