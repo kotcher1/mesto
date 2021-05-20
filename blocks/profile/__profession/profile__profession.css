@@ -6,3 +6,10 @@
   color: white;
   margin: 16px 0 0;
 }
+
+@media screen and (max-width: 479px) {
+  .profile__profession {
+    font-size: 14px;
+    margin: 14px 0 0;
+  }
+}
