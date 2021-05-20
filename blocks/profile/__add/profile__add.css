@@ -7,8 +7,20 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  background-image: url(../../../images/plus.svg);
+  background-size: 22px 22px;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .profile__add:hover {
   opacity: 0.6;
+}
+
+@media screen and (max-width: 768px) {
+  .profile__add {
+    max-width: 282px;
+    width: 100%;
+    margin-top: 36px;
+  }
 }
