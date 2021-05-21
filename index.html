@@ -16,101 +16,99 @@
           <img class="profile__avatar" src="./images/kusto.jpg" alt="Фото">
           <div class="profile__info">
             <div class="profile__name-line">
-              <p class="profile__name">
-                Жак-Ив Кусто
-              </p>
-              <button class="profile__edit">
+              <h1 class="profile__name">Жак-Ив Кусто</h1>
+              <button class="profile__edit" type="button">
               </button>
             </div>
-            <p class="profile__profession">
-              Исследователь океана
-            </p>
+            <p class="profile__profession">Исследователь океана</p>
           </div>
         </div>
-        <button class="profile__add">
+        <button class="profile__add" type="button">
         </button>
       </section>
       <section class="places">
         <div class="places__card">
           <img class="places__image" src="./images/karachaevsk.jpg" alt="Карачаевск">
           <div class="places__name-line">
-            <p class="places__name">
+            <h2 class="places__name">
               Карачаевск
-            </p>
-            <div class="places__like">
+            </h2>
+            <button type="button" class="places__like">
 
-            </div>
+            </button>
           </div>
         </div>
         <div class="places__card">
           <img class="places__image" src="./images/elbrus.jpg" alt="Гора Эльбрус">
           <div class="places__name-line">
-            <p class="places__name">
+            <h2 class="places__name">
               Гора Эльбрус
-            </p>
-            <div class="places__like">
+            </h2>
+            <button type="button" class="places__like">
 
-            </div>
+            </button>
           </div>
         </div>
         <div class="places__card">
           <img class="places__image" src="./images/dombay.jpg" alt="Домбай">
           <div class="places__name-line">
-            <p class="places__name">
+            <h2 class="places__name">
               Домбай
-            </p>
-            <div class="places__like">
+            </h2>
+            <button type="button" class="places__like">
 
-            </div>
+            </button>
           </div>
         </div>
         <div class="places__card">
           <img class="places__image" src="./images/elbrus.jpg" alt="Гора Эльбрус">
           <div class="places__name-line">
-            <p class="places__name">
+            <h2 class="places__name">
               Гора Эльбрус
-            </p>
-            <div class="places__like">
+            </h2>
+            <button type="button" class="places__like">
 
-            </div>
+            </button>
           </div>
         </div>
         <div class="places__card">
           <img class="places__image" src="./images/dombay.jpg" alt="Домбай">
           <div class="places__name-line">
-            <p class="places__name">
+            <h2 class="places__name">
               Домбай
-            </p>
-            <div class="places__like">
+            </h2>
+            <button type="button" class="places__like">
 
-            </div>
+            </button>
           </div>
         </div>
         <div class="places__card">
           <img class="places__image" src="./images/karachaevsk.jpg" alt="Карачаево-Черкесия">
           <div class="places__name-line">
-            <p class="places__name">
+            <h2 class="places__name">
               Карачаево-Черкесия
-            </p>
-            <div class="places__like">
+            </h2>
+            <button type="button" class="places__like">
 
-            </div>
+            </button>
           </div>
         </div>
       </section>
       <section class="popup">
-        <form class="popup__container">
-          <p class="popup__title">
+        <div class="popup__container">
+          <h3 class="popup__title">
             Редактировать профиль
-          </p>
-          <input class="popup__input" type="text" value="Жак-Ив Кусто" placeholder="Имя" id="name">
-          <input class="popup__input" type="text" value="Исследователь океана" placeholder="Род деятлеьности" id="job">
-          <button type="submit" class="popup__submit">
-            Сохранить
+          </h3>
+          <form class="popup__form" name="form">
+            <input class="popup__input" type="text" value="Жак-Ив Кусто" placeholder="Имя" id="name" name="fullname">
+            <input class="popup__input" type="text" value="Исследователь океана" placeholder="Род деятлеьности" id="job" name="job">
+            <button type="submit" class="popup__submit">
+              Сохранить
+            </button>
+          </form>
+          <button class="popup__close-button" type="button">
           </button>
-          <button class="popup__close-button">
-          </button>
-        </form>
+        </div>
       </section>
     </main>
     <footer class="footer">
@@ -118,6 +116,6 @@
         © 2020 Mesto Russia
       </p>
     </footer>
-    <script src="./vendor/script.js"></script>
+    <script src="./scripts/script.js"></script>
   </body>
 </html>
