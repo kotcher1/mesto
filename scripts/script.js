@@ -10,6 +10,8 @@ let jobField = document.querySelector('.profile__profession');
 
 function edit() {
   popup.classList.add('popup_opened');
+  nameInput.value = nameField.textContent;
+  jobInput.value = jobField.textContent;
 }
 
 function closePopup() {
@@ -22,16 +24,11 @@ function formSubmit(evt) {
   let jobValue = jobInput.value;
   nameField.textContent = nameValue;
   jobField.textContent = jobValue;
+  closePopup();
 }
 
 editButton.addEventListener('click', edit);
 
-closeButton.addEventListener('click', (e) => {
-  e.preventDefault();
-  closePopup();
-})
+closeButton.addEventListener('click', closePopup);
 
-form.addEventListener('submit', (e) => {
-  formSubmit(e);
-  closePopup();
-})
+form.addEventListener('submit', formSubmit);

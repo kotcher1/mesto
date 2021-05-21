@@ -3,8 +3,10 @@
   height: 19px;
   background-image: url(../../../images/like.svg);
   cursor: pointer;
+  border: none;
+  background-color: transparent;
 }
 
 .places__like:hover {
-  opacity: 0.6;
+  opacity: 0.5;
 }
