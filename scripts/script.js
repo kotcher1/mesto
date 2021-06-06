@@ -13,6 +13,8 @@ const cardBlock = document.querySelector('.places');
 const addButton = document.querySelector('.profile__add');
 const pictureNameInput = document.querySelector('#pictureName');
 const linkInput = document.querySelector('#link');
+const imagePopup = document.querySelector('#imagePopup');
+const bigImage = document.querySelector('.popup__image');
 
 
 const initialCards = [
@@ -68,8 +70,13 @@ document.addEventListener('click', (e) => {
     closePopup(e);
   } else if (e.target.className.indexOf('places__like') !== -1) {
     e.target.classList.toggle('places__like_liked');
-  } else if (e.target.className === "places__delete-button") {
+  } else if (e.target.className === 'places__delete-button') {
     cardRemove(e);
+  } else if (e.target.className === 'places__image') {
+    imagePopup.classList.add('popup_opened');
+    bigImage.src = e.target.src;
+    bigImage.alt = e.target.alt;
+    document.querySelector('.popup__image-title').textContent = e.target.alt;
   }
 })
 
