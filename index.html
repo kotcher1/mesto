@@ -27,79 +27,13 @@
         </button>
       </section>
       <section class="places">
-        <div class="places__card">
-          <img class="places__image" src="./images/karachaevsk.jpg" alt="Карачаевск">
-          <div class="places__name-line">
-            <h2 class="places__name">
-              Карачаевск
-            </h2>
-            <button type="button" class="places__like">
-
-            </button>
-          </div>
-        </div>
-        <div class="places__card">
-          <img class="places__image" src="./images/elbrus.jpg" alt="Гора Эльбрус">
-          <div class="places__name-line">
-            <h2 class="places__name">
-              Гора Эльбрус
-            </h2>
-            <button type="button" class="places__like">
-
-            </button>
-          </div>
-        </div>
-        <div class="places__card">
-          <img class="places__image" src="./images/dombay.jpg" alt="Домбай">
-          <div class="places__name-line">
-            <h2 class="places__name">
-              Домбай
-            </h2>
-            <button type="button" class="places__like">
-
-            </button>
-          </div>
-        </div>
-        <div class="places__card">
-          <img class="places__image" src="./images/elbrus.jpg" alt="Гора Эльбрус">
-          <div class="places__name-line">
-            <h2 class="places__name">
-              Гора Эльбрус
-            </h2>
-            <button type="button" class="places__like">
-
-            </button>
-          </div>
-        </div>
-        <div class="places__card">
-          <img class="places__image" src="./images/dombay.jpg" alt="Домбай">
-          <div class="places__name-line">
-            <h2 class="places__name">
-              Домбай
-            </h2>
-            <button type="button" class="places__like">
-
-            </button>
-          </div>
-        </div>
-        <div class="places__card">
-          <img class="places__image" src="./images/karachaevsk.jpg" alt="Карачаево-Черкесия">
-          <div class="places__name-line">
-            <h2 class="places__name">
-              Карачаево-Черкесия
-            </h2>
-            <button type="button" class="places__like">
-
-            </button>
-          </div>
-        </div>
       </section>
-      <section class="popup">
+      <section class="popup" id="popupEdit">
         <div class="popup__container">
           <h2 class="popup__title">
             Редактировать профиль
           </h2>
-          <form class="popup__form" name="form">
+          <form class="popup__form" name="form" id="formName">
             <input class="popup__input" type="text" value="Жак-Ив Кусто" placeholder="Имя" id="name" name="fullname">
             <input class="popup__input" type="text" value="Исследователь океана" placeholder="Род деятлеьности" id="job" name="job">
             <button type="submit" class="popup__submit">
@@ -110,12 +44,54 @@
           </button>
         </div>
       </section>
+      <section class="popup" id="popupAdd">
+        <div class="popup__container">
+          <h2 class="popup__title">
+            Новое место
+          </h2>
+          <form class="popup__form" name="form" id="formPlace">
+            <input class="popup__input" type="text" value="Жак-Ив Кусто" placeholder="Название" id="pictureName" name="pictureName">
+            <input class="popup__input" type="text" value="Исследователь океана" placeholder="Ссылка на картинку" id="link" name="link">
+            <button type="submit" class="popup__submit">
+              Создать
+            </button>
+          </form>
+          <button class="popup__close-button" type="button">
+          </button>
+        </div>
+      </section>
+      <section class="popup popup_type_image" id="imagePopup">
+        <div class="popup__container popup__container_type_image">
+          <img class="popup__image" src="#" alt="">
+          <p class="popup__image-title">
+          </p>
+          <button class="popup__close-button" type="button">
+          </button>
+        </div>
+      </section>
     </main>
     <footer class="footer">
       <p class="footer__copyright">
         © 2020 Mesto Russia
       </p>
     </footer>
+<<<<<<< HEAD
+=======
+    <template id="card-template">
+      <div class="places__card">
+        <img class="places__image" src="" alt="">
+        <div class="places__name-line">
+          <p class="places__name">
+          </p>
+          <div class="places__like">
+      
+          </div>
+        </div>
+        <button class="places__delete-button" type="button">
+        </button>
+      </div>
+    </template>
+>>>>>>> develop
     <script src="./scripts/script.js"></script>
   </body>
 </html>

@@ -5,6 +5,7 @@
   max-width: 282px;
   width: 100%;
   overflow: hidden;
+  position: relative;
 }
 
 .places__card:not(:nth-child(3n+1)) {
