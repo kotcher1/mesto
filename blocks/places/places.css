@@ -4,6 +4,7 @@
   flex-wrap: wrap;
   max-width: 880px;
   margin: 47px auto 0;
+  overflow: hidden;
 }
 
 @media screen and (max-width: 991px) {
