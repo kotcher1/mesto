@@ -112,7 +112,7 @@ function removeCard(e) {
 
 function createCard() {
   const card = cardTemplate.querySelector('.places__card').cloneNode(true);
-  document.addEventListener('click', (e) => {
+  card.addEventListener('click', (e) => {
     if (e.target.className.indexOf('places__like') !== -1) {
       e.target.classList.toggle('places__like_liked');
     } else if (e.target.className === 'places__delete-button') {
