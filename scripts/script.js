@@ -19,7 +19,6 @@ const bigImage = document.querySelector('.popup__image');
 const popupImageTitle = document.querySelector('.popup__image-title');
 const cardTemplate = document.querySelector('#card-template').content;
 
-
 const initialCards = [
   {
     name: 'Архыз',
@@ -48,9 +47,15 @@ const initialCards = [
 ];
 
 function openEditProfilePopup() {
-  popupEditProfile.classList.add('popup_opened');
+  openPopup(popupEditProfile);
   nameInput.value = nameField.textContent;
   jobInput.value = jobField.textContent;
+}
+
+function openAddCardPopup () {
+  openPopup(popupAddCard);
+  pictureNameInput.value = '';
+  linkInput.value = '';
 }
 
 function closePopup(evt) {
@@ -77,19 +82,9 @@ document.addEventListener('click', (e) => {
 formEditProfile.addEventListener('submit', submitEditProfilePopup);
 
 initialCards.forEach((item) => {
-  const card = createCard();
-  const placeImage = card.querySelector('.places__image');
-  card.querySelector('.places__name').textContent = item.name;
-  placeImage.alt = item.name;
-  placeImage.src = item.link;
+  const card = createCard(item.name, item.link);
   cardBlock.append(card);
 })
-
-function openAddCardPopup () {
-  popupAddCard.classList.add('popup_opened');
-  pictureNameInput.value = '';
-  linkInput.value = '';
-}
 
 addButton.addEventListener('click', openAddCardPopup);
 
@@ -97,11 +92,7 @@ formAddCard.addEventListener('submit', submitAddCardForm);
 
 function submitAddCardForm(evt) {
   evt.preventDefault();
-  const card = createCard();
-  const placeImage = card.querySelector('.places__image');
-  card.querySelector('.places__name').textContent = pictureNameInput.value;
-  placeImage.alt = pictureNameInput.value;
-  placeImage.src = linkInput.value;
+  const card = createCard(pictureNameInput.value, linkInput.value);
   cardBlock.prepend(card);
   closePopup(evt);
 }
@@ -110,19 +101,29 @@ function removeCard(e) {
   e.target.parentElement.remove();
 }
 
-function createCard() {
+function createCard(name, link) {
   const card = cardTemplate.querySelector('.places__card').cloneNode(true);
-  card.addEventListener('click', (e) => {
-    if (e.target.className.indexOf('places__like') !== -1) {
-      e.target.classList.toggle('places__like_liked');
-    } else if (e.target.className === 'places__delete-button') {
-      removeCard(e);
-    } else if (e.target.className === 'places__image') {
-      popupImage.classList.add('popup_opened');
-      bigImage.src = e.target.src;
-      bigImage.alt = e.target.alt;
-      popupImageTitle.textContent = e.target.alt;
-    }
+  const placeImage = card.querySelector('.places__image');
+  const likeButton = card.querySelector('.places__like');
+  const deleteButton = card.querySelector('.places__delete-button');
+  card.querySelector('.places__name').textContent = name;
+  placeImage.alt = name;
+  placeImage.src = link;
+  likeButton.addEventListener('click', () => {
+    likeButton.classList.toggle('places__like_liked');
+  })
+  deleteButton.addEventListener('click', (e) => {
+    removeCard(e);
+  })
+  placeImage.addEventListener('click', () => {
+    openPopup(popupImage);
+    bigImage.src = placeImage.src;
+    bigImage.alt = placeImage.alt;
+    popupImageTitle.textContent = placeImage.alt;
   })
   return card;
+}
+
+function openPopup(popup) {
+  popup.classList.add('popup_opened');
 }
