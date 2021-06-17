@@ -19,6 +19,8 @@ const bigImage = document.querySelector('.popup__image');
 const popupImageTitle = document.querySelector('.popup__image-title');
 const cardTemplate = document.querySelector('#card-template').content;
 
+const popups = Array.from(document.querySelectorAll('.popup'));
+
 const initialCards = [
   {
     name: 'Архыз',
@@ -50,6 +52,7 @@ function openEditProfilePopup() {
   openPopup(popupEditProfile);
   nameInput.value = nameField.textContent;
   jobInput.value = jobField.textContent;
+  formEditProfile.querySelector('.popup__submit').classList.remove('popup__submit_disable');
 }
 
 function openAddCardPopup () {
@@ -59,7 +62,17 @@ function openAddCardPopup () {
 }
 
 function closePopup(evt) {
-  evt.target.parentElement.parentElement.classList.remove('popup_opened');
+  if(evt.target.classList.contains('popup')) {
+    evt.target.classList.remove('popup_opened');
+  } else if (evt.target.classList.contains('popup__close-button')) {
+    evt.target.parentElement.parentElement.classList.remove('popup_opened');
+  } else {
+    popups.forEach((popup) => {
+      if(popup.classList.contains('popup_opened')) {
+        popup.classList.remove('popup_opened');
+      }
+    })
+  }
 }
 
 function submitEditProfilePopup(evt) {
@@ -127,3 +140,16 @@ function createCard(name, link) {
 function openPopup(popup) {
   popup.classList.add('popup_opened');
 }
+
+popups.forEach((popup) => {
+  popup.addEventListener('click',(e) => {
+    if(e.target === popup) {
+      closePopup(e);
+    }
+  })
+  document.addEventListener('keydown', (e) => {
+    if(e.key === 'Escape') {
+      closePopup(e);
+    }
+  })
+})

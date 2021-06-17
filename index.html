@@ -33,9 +33,13 @@
           <h2 class="popup__title">
             Редактировать профиль
           </h2>
-          <form class="popup__form" name="form" id="formName">
-            <input class="popup__input" type="text" value="Жак-Ив Кусто" placeholder="Имя" id="name" name="fullname">
-            <input class="popup__input" type="text" value="Исследователь океана" placeholder="Род деятлеьности" id="job" name="job">
+          <form class="popup__form" name="form" id="formName" novalidate>
+            <input class="popup__input" type="text" value="Жак-Ив Кусто" placeholder="Имя" id="name" name="fullname" required minlength="2" maxlength="40">
+            <span class="popup__input-error">
+            </span>
+            <input class="popup__input" type="text" value="Исследователь океана" placeholder="Род деятлеьности" id="job" name="job" required minlength="2" maxlength="200">
+            <span class="popup__input-error">
+            </span>
             <button type="submit" class="popup__submit">
               Сохранить
             </button>
@@ -50,9 +54,13 @@
             Новое место
           </h2>
           <form class="popup__form" name="form" id="formPlace">
-            <input class="popup__input" type="text" value="Жак-Ив Кусто" placeholder="Название" id="pictureName" name="pictureName">
-            <input class="popup__input" type="text" value="Исследователь океана" placeholder="Ссылка на картинку" id="link" name="link">
-            <button type="submit" class="popup__submit">
+            <input class="popup__input" type="text" value="" placeholder="Название" id="pictureName" name="pictureName" minlength="2" maxlength="30" required>
+            <span class="popup__input-error">
+            </span>
+            <input class="popup__input" type="url" value="" placeholder="Ссылка на картинку" id="link" name="link" required>
+            <span class="popup__input-error">
+            </span>
+            <button type="submit" class="popup__submit popup__submit_disable" disabled>
               Создать
             </button>
           </form>
@@ -90,5 +98,6 @@
       </div>
     </template>
     <script src="./scripts/script.js"></script>
+    <script src="./scripts/validate.js"></script>
   </body>
 </html>
