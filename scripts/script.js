@@ -57,22 +57,20 @@ function openEditProfilePopup() {
 
 function openAddCardPopup () {
   openPopup(popupAddCard);
-  pictureNameInput.value = '';
-  linkInput.value = '';
+  if(!pictureNameInput.validity.valid || !linkInput.validity.valid) {
+    const addCardSubmit = popupAddCard.querySelector('.popup__submit');
+    addCardSubmit.classList.add('popup__submit_disable');
+    addCardSubmit.setAttribute('disabled', '');
+  }
 }
 
-function closePopup(evt) {
-  if(evt.target.classList.contains('popup')) {
-    evt.target.classList.remove('popup_opened');
-  } else if (evt.target.classList.contains('popup__close-button')) {
-    evt.target.parentElement.parentElement.classList.remove('popup_opened');
-  } else {
-    popups.forEach((popup) => {
-      if(popup.classList.contains('popup_opened')) {
-        popup.classList.remove('popup_opened');
-      }
-    })
-  }
+function closePopup() {
+  popups.forEach((popup) => {
+    if(popup.classList.contains('popup_opened')) {
+      popup.classList.remove('popup_opened');
+    }
+  })
+  document.removeEventListener('keydown', closeByEscape)
 }
 
 function submitEditProfilePopup(evt) {
@@ -81,14 +79,14 @@ function submitEditProfilePopup(evt) {
   const jobValue = jobInput.value;
   nameField.textContent = nameValue;
   jobField.textContent = jobValue;
-  closePopup(evt);
+  closePopup();
 }
 
 editButton.addEventListener('click', openEditProfilePopup);
 
 document.addEventListener('click', (e) => {
   if(e.target.className === 'popup__close-button') {
-    closePopup(e);
+    closePopup();
   }
 })
 
@@ -107,7 +105,9 @@ function submitAddCardForm(evt) {
   evt.preventDefault();
   const card = createCard(pictureNameInput.value, linkInput.value);
   cardBlock.prepend(card);
-  closePopup(evt);
+  closePopup();
+  pictureNameInput.value = '';
+  linkInput.value = '';
 }
 
 function removeCard(e) {
@@ -139,17 +139,19 @@ function createCard(name, link) {
 
 function openPopup(popup) {
   popup.classList.add('popup_opened');
+  document.addEventListener('keydown', closeByEscape);
 }
 
 popups.forEach((popup) => {
   popup.addEventListener('click',(e) => {
     if(e.target === popup) {
-      closePopup(e);
-    }
-  })
-  document.addEventListener('keydown', (e) => {
-    if(e.key === 'Escape') {
-      closePopup(e);
+      closePopup();
     }
   })
 })
+
+function closeByEscape(evt) {
+  if (evt.key === 'Escape') {
+    closePopup();
+  }
+}
