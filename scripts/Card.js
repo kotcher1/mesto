@@ -14,7 +14,6 @@ export default class Card {
     this._placeImage.src = this._link;
     this._likeCard();
     this._deleteCard();
-    this._openImage();
     return this._card;
   }
 
@@ -29,15 +28,6 @@ export default class Card {
     this._likeButton = this._card.querySelector('.places__like');
     this._likeButton.addEventListener('click', () => {
       this._likeButton.classList.toggle('places__like_liked');
-    })
-  }
-
-  _openImage(){
-    this._placeImage.addEventListener('click', () => {
-      openPopup(popupImage);
-      bigImage.src = this._placeImage.src;
-      bigImage.alt = this._placeImage.alt;
-      popupImageTitle.textContent = this._placeImage.alt;
     })
   }
 

@@ -130,6 +130,7 @@ function closeByEscape(evt) {
 initialCards.forEach((item) => {
   const card = new Card(item.name, item.link, '#card-template');
   const createdCard = card.createCard();
+  createImagePopup(createdCard);
   cardBlock.append(createdCard);
 })
 
@@ -137,6 +138,7 @@ function submitAddCardForm(evt) {
   evt.preventDefault();
   const card = new Card(pictureNameInput.value, linkInput.value, '#card-template');
   const createdCard = card.createCard();
+  createImagePopup(createdCard);
   cardBlock.prepend(createdCard);
   closePopup();
   pictureNameInput.value = '';
@@ -147,3 +149,13 @@ formList.forEach((formElement) => {
   const formValidator = new FormValidator(formParametes, formElement);
   formValidator.enableValidation();
 });
+
+function createImagePopup(card) {
+  const placeImage = card.querySelector('.places__image');
+  placeImage.addEventListener('click', () => {
+    openPopup(popupImage);
+    bigImage.src = placeImage.src;
+    bigImage.alt = placeImage.alt;
+    popupImageTitle.textContent = placeImage.alt;
+  })
+}
