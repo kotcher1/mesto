@@ -15,11 +15,6 @@ const cardBlock = document.querySelector('.places');
 const addButton = document.querySelector('.profile__add');
 const pictureNameInput = document.querySelector('#pictureName');
 const linkInput = document.querySelector('#link');
-const popupImage = document.querySelector('#imagePopup');
-const bigImage = document.querySelector('.popup__image');
-
-const popupImageTitle = document.querySelector('.popup__image-title');
-
 const popups = Array.from(document.querySelectorAll('.popup'));
 
 const formParametes = {
@@ -120,7 +115,7 @@ function closeByEscape(evt) {
 initialCards.forEach((item) => {
   const card = new Card(item.name, item.link, '#card-template');
   const createdCard = card.createCard();
-  createImagePopup(createdCard);
+  // createImagePopup(createdCard);
   cardBlock.append(createdCard);
 })
 
@@ -128,7 +123,7 @@ function submitAddCardForm(evt) {
   evt.preventDefault();
   const card = new Card(pictureNameInput.value, linkInput.value, '#card-template');
   const createdCard = card.createCard();
-  createImagePopup(createdCard);
+  // createImagePopup(createdCard);
   cardBlock.prepend(createdCard);
   closePopup(document.querySelector('.popup_opened'));
   pictureNameInput.value = '';
@@ -140,12 +135,4 @@ formList.forEach((formElement) => {
   formValidator.enableValidation();
 });
 
-function createImagePopup(card) {
-  const placeImage = card.querySelector('.places__image');
-  placeImage.addEventListener('click', () => {
-    openPopup(popupImage);
-    bigImage.src = placeImage.src;
-    bigImage.alt = placeImage.alt;
-    popupImageTitle.textContent = placeImage.alt;
-  })
-}
+export {openPopup}
