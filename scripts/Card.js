@@ -12,10 +12,7 @@ export default class Card {
       this._removeCard(e);
     }
     this._handlePreviewPicture = () => {
-      openPopup(this._popupImage);
-      this._bigImage.src = this._placeImage.src;
-      this._bigImage.alt = this._placeImage.alt;
-      this._popupImageTitle.textContent = this._placeImage.alt;
+      this._previewPicture();
     }
   }
 
@@ -59,5 +56,12 @@ export default class Card {
 
   _removeCard(e) {
     e.target.parentElement.remove();
+  }
+
+  _previewPicture() {
+    openPopup(this._popupImage);
+    this._bigImage.src = this._placeImage.src;
+    this._bigImage.alt = this._placeImage.alt;
+    this._popupImageTitle.textContent = this._placeImage.alt;
   }
 }
