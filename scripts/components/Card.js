@@ -1,10 +1,11 @@
-import { openPopup } from "./script.js";
+import PopupWithImage from './PopupWithImage.js'
 
 export default class Card {
-  constructor(name, link, selector) {
+  constructor(name, link, selector, handleCardClick) {
     this._name = name;
     this._link = link;
     this._selector = selector;
+    this._handleCardClick = handleCardClick;
   }
 
   _getCardTemplate() {
@@ -58,9 +59,12 @@ export default class Card {
   }
 
   _handlePreviewPicture = () => {
-    openPopup(this._popupImage);
-    this._bigImage.src = this._placeImage.src;
-    this._bigImage.alt = this._placeImage.alt;
-    this._popupImageTitle.textContent = this._placeImage.alt;
+    this._handleCardClick(this._placeImage);
+
+    // openPopup(this._popupImage);
+    
+    // this._bigImage.src = this._placeImage.src;
+    // this._bigImage.alt = this._placeImage.alt;
+    // this._popupImageTitle.textContent = this._placeImage.alt;
   }
 }
