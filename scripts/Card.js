@@ -5,15 +5,6 @@ export default class Card {
     this._name = name;
     this._link = link;
     this._selector = selector;
-    this._handleLikeIcon = () => {
-      this._likeButton.classList.toggle('places__like_liked');
-    } 
-    this._handleDeleteCard  = (e) => {
-      this._removeCard(e);
-    }
-    this._handlePreviewPicture = () => {
-      this._previewPicture();
-    }
   }
 
   _getCardTemplate() {
@@ -58,7 +49,15 @@ export default class Card {
     e.target.parentElement.remove();
   }
 
-  _previewPicture() {
+  _handleLikeIcon = () => {
+    this._likeButton.classList.toggle('places__like_liked');
+  } 
+
+  _handleDeleteCard  = (e) => {
+    this._removeCard(e);
+  }
+
+  _handlePreviewPicture = () => {
     openPopup(this._popupImage);
     this._bigImage.src = this._placeImage.src;
     this._bigImage.alt = this._placeImage.alt;
