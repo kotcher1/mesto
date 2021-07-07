@@ -22,7 +22,8 @@ import { editButton,
 
 import PopupWithForm from '../components/PopupWithForm.js';
 import PopupWithImage from '../components/PopupWithImage.js';
-import Popup from '../components/Popup.js';
+import UserInfo from '../components/UserInfo.js';
+import Section from '../components/Section.js';
 
 // function openEditProfilePopup() {
 //   openPopup(popupEditProfile);
@@ -33,10 +34,12 @@ import Popup from '../components/Popup.js';
 
 function openEditProfilePopup() {
   const popup = new PopupWithForm('#popupEdit', () => {
-    const nameValue = nameInput.value;
-    const jobValue = jobInput.value;
-    nameField.textContent = nameValue;
-    jobField.textContent = jobValue;
+    // const nameValue = nameInput.value;
+    // const jobValue = jobInput.value;
+    // nameField.textContent = nameValue;
+    // jobField.textContent = jobValue;
+    const userInfo = new UserInfo('.profile__name', '.profile__profession');
+    userInfo.setUserInfo(userInfo.getUserInfo());
   });
   popup.open();
   popup.setEventListeners();
@@ -65,6 +68,7 @@ function openAddCardPopup() {
   });
   popup.open();
   popup.setEventListeners();
+
 }
 
 // function closePopup(popup) {
