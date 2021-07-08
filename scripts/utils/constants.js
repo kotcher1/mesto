@@ -1,18 +1,8 @@
 const editButton = document.querySelector('.profile__edit');
-const popupEditProfile = document.querySelector('#popupEdit');
-const popupAddCard = document.querySelector('#popupAdd');
-const formEditProfile = document.querySelector('#formName');
-const formAddCard = document.querySelector('#formPlace');
-const nameInput = document.querySelector('#name');
-const jobInput = document.querySelector('#job');
-const nameField = document.querySelector('.profile__name');
-const jobField = document.querySelector('.profile__profession');
-
 const cardBlock = document.querySelector('.places');
 const addButton = document.querySelector('.profile__add');
 const pictureNameInput = document.querySelector('#pictureName');
 const linkInput = document.querySelector('#link');
-const popups = Array.from(document.querySelectorAll('.popup'));
 
 const formParametes = {
   inputSelector: '.popup__input',
@@ -53,19 +43,10 @@ const initialCards = [
 ];
 
 export { editButton,
-  popupEditProfile,
-  popupAddCard,
-  formEditProfile,
-  formAddCard,
-  nameInput,
-  jobInput,
-  nameField,
-  jobField,
   cardBlock,
   addButton,
   pictureNameInput,
   linkInput,
-  popups,
   formParametes,
   formList,
   initialCards
