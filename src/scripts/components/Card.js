@@ -58,11 +58,5 @@ export default class Card {
 
   _handlePreviewPicture = () => {
     this._handleCardClick(this._placeImage);
-
-    // openPopup(this._popupImage);
-    
-    // this._bigImage.src = this._placeImage.src;
-    // this._bigImage.alt = this._placeImage.alt;
-    // this._popupImageTitle.textContent = this._placeImage.alt;
   }
 }
