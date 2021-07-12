@@ -1,8 +1,9 @@
 const editButton = document.querySelector('.profile__edit');
-const cardBlock = document.querySelector('.places');
 const addButton = document.querySelector('.profile__add');
 const pictureNameInput = document.querySelector('#pictureName');
 const linkInput = document.querySelector('#link');
+const nameInput = document.querySelector('#name');
+const jobInput = document.querySelector('#job');
 
 const formParametes = {
   inputSelector: '.popup__input',
@@ -43,11 +44,11 @@ const initialCards = [
 ];
 
 export { editButton,
-  cardBlock,
   addButton,
   pictureNameInput,
   linkInput,
   formParametes,
-  formList,
-  initialCards
+  initialCards,
+  nameInput,
+  jobInput
 }
