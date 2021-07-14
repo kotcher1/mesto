@@ -1,8 +1,9 @@
 export default class Card {
-  constructor(name, link, selector) {
+  constructor(name, link, selector, handleCardClick) {
     this._name = name;
     this._link = link;
     this._selector = selector;
+    this._handleCardClick = handleCardClick;
   }
 
   _getCardTemplate() {
@@ -19,12 +20,12 @@ export default class Card {
     this._likeCard();
     this._deleteCard();
     this._setEventListeners();
+    this._createImagePopup();
     return this._card;
   }
 
   _deleteCard() {
     this._deleteButton = this._card.querySelector('.places__delete-button');
-
   }
 
   _likeCard() {
@@ -32,15 +33,30 @@ export default class Card {
   }
 
   _setEventListeners() {
-    this._deleteButton.addEventListener('click', (e) => {
-      this._removeCard(e);
-    })
-    this._likeButton.addEventListener('click', () => {
-      this._likeButton.classList.toggle('places__like_liked');
-    })
+    this._deleteButton.addEventListener('click', (e) => this._handleDeleteCard(e))
+    this._likeButton.addEventListener('click', () => this._handleLikeIcon())
+    this._placeImage.addEventListener('click', () => this._handlePreviewPicture())
+  }
+
+  _createImagePopup () {
+    this._popupImageTitle = document.querySelector('.popup__image-title');
+    this._popupImage = document.querySelector('#imagePopup');
+    this._bigImage = document.querySelector('.popup__image');
   }
 
   _removeCard(e) {
     e.target.parentElement.remove();
+  }
+
+  _handleLikeIcon = () => {
+    this._likeButton.classList.toggle('places__like_liked');
+  } 
+
+  _handleDeleteCard  = (e) => {
+    this._removeCard(e);
+  }
+
+  _handlePreviewPicture = () => {
+    this._handleCardClick(this._placeImage);
   }
 }
