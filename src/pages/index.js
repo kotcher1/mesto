@@ -9,8 +9,6 @@ import Section from '../scripts/components/Section.js';
 
 import { editButton,
   addButton,
-  pictureNameInput,
-  linkInput,
   formParametes,
   initialCards,
   nameInput,
@@ -18,37 +16,48 @@ import { editButton,
 } from '../scripts/utils/constants.js'
 
 const profileFormValidator = new FormValidator(formParametes, document.querySelector('#popupEdit .popup__form')); 
-const addCardFormValidator = new FormValidator(formParametes, document.querySelector('#popupAdd .popup__form')); 
+profileFormValidator.enableValidation();
+
+const addCardFormValidator = new FormValidator(formParametes, document.querySelector('#popupAdd .popup__form'));
+addCardFormValidator.enableValidation();
+
 const userInfo = new UserInfo('.profile__name', '.profile__profession');
+
 const popupEdit= new PopupWithForm('#popupEdit', ( {fullname, job} ) => {
   userInfo.setUserInfo(fullname, job);
 });
-const popupAddCard = new PopupWithForm('#popupAdd', () => {
-  createNewCard(pictureNameInput.value, linkInput.value, '#card-template', 'prepend');
+popupEdit.setEventListeners();
+
+const popupAddCard = new PopupWithForm('#popupAdd', ( {pictureName, link} ) => {
+  createNewCard(pictureName, link, '#card-template', 'prepend');
 });
+popupAddCard.setEventListeners();
+
 const section = new Section({ items: initialCards, 
   renderer: (item) => {
     createNewCard(item.name, item.link, '#card-template', 'append');
   }
 }, '.places')
 
+const popupImage = new PopupWithImage('#imagePopup');
+popupImage.setEventListeners();
+
 function openEditProfilePopup() {
   const userInfoText = userInfo.getUserInfo();
   nameInput.value = userInfoText.name;
   jobInput.value = userInfoText.job;
-  profileFormValidator.enableValidation();
+  profileFormValidator.toggleButtonState();
   popupEdit.open();
 }
 
 function openAddCardPopup() {
-  addCardFormValidator.enableValidation();
+  addCardFormValidator.toggleButtonState();
   popupAddCard.open();
 }
 
 function createNewCard(name, link, template, method) {
   const card = new Card(name, link, template, (image) => {
-    const popup = new PopupWithImage('#imagePopup');
-    popup.open(image);
+    popupImage.open(image);
   });
   const createdCard = card.createCard();
   section.addItem(createdCard, method);

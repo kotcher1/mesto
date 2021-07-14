@@ -1,7 +1,5 @@
 const editButton = document.querySelector('.profile__edit');
 const addButton = document.querySelector('.profile__add');
-const pictureNameInput = document.querySelector('#pictureName');
-const linkInput = document.querySelector('#link');
 const nameInput = document.querySelector('#name');
 const jobInput = document.querySelector('#job');
 
@@ -45,8 +43,6 @@ const initialCards = [
 
 export { editButton,
   addButton,
-  pictureNameInput,
-  linkInput,
   formParametes,
   initialCards,
   nameInput,

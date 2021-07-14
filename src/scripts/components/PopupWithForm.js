@@ -16,20 +16,16 @@ export default class PopupWithForm extends Popup {
 
   setEventListeners() {
     super.setEventListeners();
-    this._popup.addEventListener('submit', this._submitPopup.bind(this), { once: true })
+    this._popup.addEventListener('submit', this._submitPopup.bind(this))
   }
 
   close() {
     super.close();
-    if (this._popupSelector === "#popupAdd") {
-      this._popup.querySelector('#pictureName').value = '';
-      this._popup.querySelector('#link').value = '';
-    }
+    this._popup.querySelector('.popup__form').reset();
   }
 
   _submitPopup(evt) {
     evt.preventDefault();
-    this._getInputValues();
     this._submit(this._getInputValues());
     this.close();
   }
