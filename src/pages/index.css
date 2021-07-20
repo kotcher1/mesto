@@ -39,3 +39,5 @@
 @import url(../blocks/popup/__input-error/popup__input-error.css);
 @import url(../blocks/popup/__input-error/_active/popup__input-error_active.css);
 @import url(../blocks/popup/__submit/_disable/popup__submit_disable.css);
+@import url(../blocks/places/__like-container/places__like-container.css);
+@import url(../blocks/places/__like-number/places__like-number.css);

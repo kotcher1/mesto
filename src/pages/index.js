@@ -6,6 +6,7 @@ import PopupWithForm from '../scripts/components/PopupWithForm.js';
 import PopupWithImage from '../scripts/components/PopupWithImage.js';
 import UserInfo from '../scripts/components/UserInfo.js';
 import Section from '../scripts/components/Section.js';
+import Api from '../scripts/components/Api.js';
 
 import { editButton,
   addButton,
@@ -16,10 +17,8 @@ import { editButton,
 } from '../scripts/utils/constants.js'
 
 const profileFormValidator = new FormValidator(formParametes, document.querySelector('#popupEdit .popup__form')); 
-profileFormValidator.enableValidation();
 
 const addCardFormValidator = new FormValidator(formParametes, document.querySelector('#popupAdd .popup__form'));
-addCardFormValidator.enableValidation();
 
 const userInfo = new UserInfo('.profile__name', '.profile__profession');
 
@@ -46,12 +45,12 @@ function openEditProfilePopup() {
   const userInfoText = userInfo.getUserInfo();
   nameInput.value = userInfoText.name;
   jobInput.value = userInfoText.job;
-  profileFormValidator.toggleButtonState();
+  profileFormValidator.enableValidation();
   popupEdit.open();
 }
 
 function openAddCardPopup() {
-  addCardFormValidator.toggleButtonState();
+  addCardFormValidator.enableValidation();
   popupAddCard.open();
 }
 
@@ -67,4 +66,23 @@ editButton.addEventListener('click', openEditProfilePopup);
 
 addButton.addEventListener('click', openAddCardPopup);
 
-section.createElements()
+section.createElements();
+
+const apiUserInfo= new Api({
+  baseUrl: 'https://nomoreparties.co/v1/cohort-26/users/me',
+  headers: {
+    authorization: 'e21e18fa-ab6d-4a3e-87f4-9a2549a22c3a',
+  }
+});
+
+apiUserInfo.getUserInfo(({fullname, job}) => {
+    userInfo.setUserInfo(fullname, job);
+  }
+);
+
+const apiCardInfo = new Api({
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-26/cards',
+  headers: {
+    authorization: 'e21e18fa-ab6d-4a3e-87f4-9a2549a22c3a',
+  }
+});
