@@ -9,7 +9,6 @@ export default class Api {
     })
     .then(res => res.json())
     .then((result) => {
-      console.log(result);
       const userInformation = {
         fullname: result.name,
         job: result.about,
@@ -24,12 +23,29 @@ export default class Api {
     })
     .then(res => res.json())
     .then((result) => {
-      console.log(result);
-      const cardInformation = {
-        name: result.name,
-        link: result.about,
-      }
-      callback(userInformation);
+      callback(result);
     }); 
+  }
+
+  setUserInfo(userName, userAbout) {
+    fetch(this._options.baseUrl, {
+      method: 'PATCH',
+      headers: this._options.headers,
+      body: JSON.stringify({
+        name: userName,
+        about: userAbout,
+      })
+    })
+  }
+
+  addCard(cardName, cardLink) {
+    fetch(this._options.baseUrl, {
+      method: 'POST',
+      headers: this._options.headers,
+      body: JSON.stringify({
+        name: cardName,
+        link: cardLink,
+      })
+    })
   }
 }

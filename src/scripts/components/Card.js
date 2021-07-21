@@ -1,9 +1,12 @@
 export default class Card {
-  constructor(name, link, selector, handleCardClick) {
+  constructor(name, link, likes, selector, handleCardClick, handleDeleteClick) {
     this._name = name;
     this._link = link;
+    this._likes = likes;
     this._selector = selector;
     this._handleCardClick = handleCardClick;
+
+    this._handleDeleteLClick = handleDeleteClick;
   }
 
   _getCardTemplate() {
@@ -15,6 +18,7 @@ export default class Card {
     this._getCardTemplate();
     this._placeImage = this._card.querySelector('.places__image');
     this._card.querySelector('.places__name').textContent = this._name;
+    this._card.querySelector('.places__like-number').textContent = this._likes;
     this._placeImage.alt = this._name;
     this._placeImage.src = this._link;
     this._likeCard();
@@ -53,7 +57,9 @@ export default class Card {
   } 
 
   _handleDeleteCard  = (e) => {
-    this._removeCard(e);
+    // this._removeCard(e);
+
+    this._handleDeleteLClick();
   }
 
   _handlePreviewPicture = () => {
