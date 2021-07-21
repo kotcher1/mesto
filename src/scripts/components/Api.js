@@ -48,4 +48,18 @@ export default class Api {
       })
     })
   }
+
+  deleteCard(cardId) {
+    fetch(`${this._options.baseUrl}/${cardId}`, {
+      method: 'DELETE',
+      headers: this._options.headers,
+    })
+  }
+
+  likeCard(cardId, method) {
+    fetch(`${this._options.baseUrl}/likes/${cardId}`, {
+      method: method,
+      headers: this._options.headers,
+    })
+  }
 }

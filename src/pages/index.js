@@ -15,7 +15,8 @@ import { editButton,
   formParametes,
   initialCards,
   nameInput,
-  jobInput
+  jobInput,
+  ownerId,
 } from '../scripts/utils/constants.js'
 
 const profileFormValidator = new FormValidator(formParametes, document.querySelector('#popupEdit .popup__form')); 
@@ -31,14 +32,17 @@ const popupEdit= new PopupWithForm('#popupEdit', ( {fullname, job} ) => {
 popupEdit.setEventListeners();
 
 const popupAddCard = new PopupWithForm('#popupAdd', ( {pictureName, link} ) => {
-  createNewCard(pictureName, link, 0, '#card-template', 'prepend');
   apiCardInfo.addCard(pictureName, link);
+  apiCardInfo.getInitialCards((result) => {
+    console.log(result);
+  });
+  createNewCard(pictureName, link, 0, '#card-template', 'prepend', true, );
 });
 popupAddCard.setEventListeners();
 
-const popupDeleteCard = new PopupDelete('#popupDelete', (card) => {
-  console.log(card);
+const popupDeleteCard = new PopupDelete('#popupDelete', (card, id) => {
   card.remove();
+  apiCardInfo.deleteCard(id);
 });
 popupDeleteCard.setEventListeners();
 
@@ -64,14 +68,18 @@ function openAddCardPopup() {
   popupAddCard.open();
 }
 
-function createNewCard(name, link, likes, template, method) {
-  const card = new Card(name, link, likes, template, 
+function createNewCard(name, link, likes, template, method, deleteButtonStatus, cardId, isLiked) {
+  const card = new Card(name, link, likes, template, deleteButtonStatus,
     (image) => {
       popupImage.open(image);
     }, 
     () => {
-      popupDeleteCard.open(card.createCard());
-    });
+      popupDeleteCard.open(createdCard, cardId);
+    },
+    (method) => {
+      apiCardInfo.likeCard(cardId, method);
+    },
+    isLiked);
   const createdCard = card.createCard();
   section.addItem(createdCard, method);
 }
@@ -106,6 +114,15 @@ const apiCardInfo = new Api({
 apiCardInfo.getInitialCards((result) => {
   console.log(result);
   result.forEach(item => {
-    createNewCard(item.name, item.link, item.likes.length, '#card-template', 'append');
+    const deleteButtonStatus = item.owner._id === ownerId;
+    const cardId = item._id;
+    let isLiked = false;
+    item.likes.forEach((item) => {
+      if(item._id === ownerId) {
+        isLiked = true;
+      } 
+    });
+    console.log(isLiked);
+    createNewCard(item.name, item.link, item.likes.length, '#card-template', 'append', deleteButtonStatus, cardId, isLiked);
   })
 })

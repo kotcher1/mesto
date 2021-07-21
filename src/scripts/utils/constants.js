@@ -2,6 +2,7 @@ const editButton = document.querySelector('.profile__edit');
 const addButton = document.querySelector('.profile__add');
 const nameInput = document.querySelector('#name');
 const jobInput = document.querySelector('#job');
+const ownerId = '9c69e0a02ff50aa6e32f70ba';
 
 const formParametes = {
   inputSelector: '.popup__input',
@@ -46,5 +47,6 @@ export { editButton,
   formParametes,
   initialCards,
   nameInput,
-  jobInput
+  jobInput,
+  ownerId,
 }

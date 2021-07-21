@@ -1,12 +1,15 @@
 export default class Card {
-  constructor(name, link, likes, selector, handleCardClick, handleDeleteClick) {
+  constructor(name, link, likes, selector, deleteButtonStatus, handleCardClick, handleDeleteClick, handleLike, isLiked) {
     this._name = name;
     this._link = link;
     this._likes = likes;
     this._selector = selector;
     this._handleCardClick = handleCardClick;
-
+    
+    this._deleteButtonStatus = deleteButtonStatus;
     this._handleDeleteLClick = handleDeleteClick;
+    this._handleLike = handleLike;
+    this._isLiked = isLiked;
   }
 
   _getCardTemplate() {
@@ -25,6 +28,10 @@ export default class Card {
     this._deleteCard();
     this._setEventListeners();
     this._createImagePopup();
+    this._setBucketStatus();
+    if(this._isLiked) {
+      this._handleLikeIcon();
+    }
     return this._card;
   }
 
@@ -54,6 +61,13 @@ export default class Card {
 
   _handleLikeIcon = () => {
     this._likeButton.classList.toggle('places__like_liked');
+    if (!this._likeButton.classList.contains('places__like_liked')) {
+      console.log(this._likeButton.classList.contains('places__like_liked'))
+      this._handleLike('DELETE');
+    } else {
+      console.log(this._likeButton.classList.contains('places__like_liked'))
+      this._handleLike('PUT');
+    }
   } 
 
   _handleDeleteCard  = (e) => {
@@ -64,5 +78,11 @@ export default class Card {
 
   _handlePreviewPicture = () => {
     this._handleCardClick(this._placeImage);
+  }
+
+  _setBucketStatus() {
+    if(!this._deleteButtonStatus) {
+      this._card.querySelector('.places__delete-button').style.display = 'none';
+    }
   }
 }
