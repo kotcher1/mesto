@@ -4,7 +4,13 @@ export default class PopupWithForm extends Popup {
   constructor(popupSelector, submit) {
     super(popupSelector);
     this._popup = document.querySelector(this._popupSelector);
+    this._button = this._popup.querySelector('.popup__submit');
     this._submit = submit;
+  }
+
+  open() {
+    super.open();
+    this._button.textContent = 'Сохранить';
   }
 
   _getInputValues() {
@@ -27,6 +33,14 @@ export default class PopupWithForm extends Popup {
   _submitPopup(evt) {
     evt.preventDefault();
     this._submit(this._getInputValues());
-    this.close();
+    this.renderLoading(true);
+  }
+
+  renderLoading(isLoading) {
+    if(isLoading) {
+      this._button.textContent = 'Сохранение...';
+    } else {
+      this.close();
+    }
   }
 }

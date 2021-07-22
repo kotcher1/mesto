@@ -21,7 +21,8 @@ export default class Card {
     this._getCardTemplate();
     this._placeImage = this._card.querySelector('.places__image');
     this._card.querySelector('.places__name').textContent = this._name;
-    this._card.querySelector('.places__like-number').textContent = this._likes;
+    this._likeCounter = this._card.querySelector('.places__like-number');
+    this._likeCounter.textContent = this._likes;
     this._placeImage.alt = this._name;
     this._placeImage.src = this._link;
     this._likeCard();
@@ -30,7 +31,12 @@ export default class Card {
     this._createImagePopup();
     this._setBucketStatus();
     if(this._isLiked) {
-      this._handleLikeIcon();
+      this._likeButton.classList.toggle('places__like_liked');
+      if (!this._likeButton.classList.contains('places__like_liked')) {
+        this._handleLike('DELETE');
+      } else {
+        this._handleLike('PUT');
+      }
     }
     return this._card;
   }
@@ -62,10 +68,12 @@ export default class Card {
   _handleLikeIcon = () => {
     this._likeButton.classList.toggle('places__like_liked');
     if (!this._likeButton.classList.contains('places__like_liked')) {
-      console.log(this._likeButton.classList.contains('places__like_liked'))
+      this._likes = this._likes - 1;
+      this._likeCounter.textContent = this._likes;
       this._handleLike('DELETE');
     } else {
-      console.log(this._likeButton.classList.contains('places__like_liked'))
+      this._likes = this._likes + 1;
+      this._likeCounter.textContent = this._likes;
       this._handleLike('PUT');
     }
   } 

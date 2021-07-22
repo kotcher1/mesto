@@ -3,6 +3,8 @@ const addButton = document.querySelector('.profile__add');
 const nameInput = document.querySelector('#name');
 const jobInput = document.querySelector('#job');
 const ownerId = '9c69e0a02ff50aa6e32f70ba';
+const changeAvatarButton = document.querySelector('.profile__avatar-button');
+const avatar = document.querySelector('.profile__avatar');
 
 const formParametes = {
   inputSelector: '.popup__input',
@@ -13,40 +15,12 @@ const formParametes = {
   errorVisibleClass: 'popup__input-error_active'
 };
 
-const formList = Array.from(document.querySelectorAll('.popup__form'));
-
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
-
 export { editButton,
   addButton,
   formParametes,
-  initialCards,
   nameInput,
   jobInput,
   ownerId,
+  changeAvatarButton,
+  avatar,
 }

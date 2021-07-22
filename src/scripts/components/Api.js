@@ -3,31 +3,49 @@ export default class Api {
     this._options = options;
   }
 
-  getUserInfo(callback) {
+  getUserInfo(setUserInfoCallback) {
     fetch(this._options.baseUrl, {
       headers: this._options.headers,
     })
-    .then(res => res.json())
+    .then(res => { 
+      if(res.ok) {
+        return res.json();
+      } else {
+        return Promise.reject(`Ошибка: ${res.status}`);
+      }
+    })
     .then((result) => {
       const userInformation = {
         fullname: result.name,
         job: result.about,
       }
-      callback(userInformation);
+      setUserInfoCallback(userInformation);
+    })
+    .catch((err) => {
+      console.log(err);
     }); 
   }
 
-  getInitialCards(callback) {
+  getInitialCards(createCardCallback) {
     fetch(this._options.baseUrl, {
       headers: this._options.headers,
     })
-    .then(res => res.json())
+    .then(res => { 
+      if(res.ok) {
+        return res.json();
+      } else {
+        return Promise.reject(`Ошибка: ${res.status}`);
+      }
+    })
     .then((result) => {
-      callback(result);
+      createCardCallback(result);
+    })
+    .catch((err) => {
+      console.log(err);
     }); 
   }
 
-  setUserInfo(userName, userAbout) {
+  setUserInfo(userName, userAbout, renderLoadingCallback) {
     fetch(this._options.baseUrl, {
       method: 'PATCH',
       headers: this._options.headers,
@@ -36,9 +54,22 @@ export default class Api {
         about: userAbout,
       })
     })
+    .then(res => { 
+      if(res.ok) {
+        return res.json();
+      } else {
+        return Promise.reject(`Ошибка: ${res.status}`);
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      renderLoadingCallback(false);
+    })
   }
 
-  addCard(cardName, cardLink) {
+  addCard(cardName, cardLink, createCardCallback, renderLoadingCallback) {
     fetch(this._options.baseUrl, {
       method: 'POST',
       headers: this._options.headers,
@@ -47,12 +78,38 @@ export default class Api {
         link: cardLink,
       })
     })
+    .then(res => { 
+      if(res.ok) {
+        return res.json();
+      } else {
+        return Promise.reject(`Ошибка: ${res.status}`);
+      }
+    })
+    .then((result) => {
+      createCardCallback(result);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      renderLoadingCallback(false);
+    })
   }
 
   deleteCard(cardId) {
     fetch(`${this._options.baseUrl}/${cardId}`, {
       method: 'DELETE',
       headers: this._options.headers,
+    })
+    .then(res => { 
+      if(res.ok) {
+        return res.json();
+      } else {
+        return Promise.reject(`Ошибка: ${res.status}`);
+      }
+    })
+    .catch((err) => {
+      console.log(err);
     })
   }
 
@@ -61,5 +118,57 @@ export default class Api {
       method: method,
       headers: this._options.headers,
     })
+    .then(res => { 
+      if(res.ok) {
+        return res.json();
+      } else {
+        return Promise.reject(`Ошибка: ${res.status}`);
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+  }
+
+  changeAvatar(link, renderLoadingCallback) {
+    fetch(`${this._options.baseUrl}/avatar`, {
+      method: 'PATCH',
+      headers: this._options.headers,
+      body: JSON.stringify({
+        avatar: link,
+      })
+    })
+    .then(res => { 
+      if(res.ok) {
+        return res.json();
+      } else {
+        return Promise.reject(`Ошибка: ${res.status}`);
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      renderLoadingCallback(false)
+    })
+  }
+
+  getAvatar(setAvatarCallback) {
+    fetch(`${this._options.baseUrl}`, {
+      headers: this._options.headers,
+    })
+    .then(res => { 
+      if(res.ok) {
+        return res.json();
+      } else {
+        return Promise.reject(`Ошибка: ${res.status}`);
+      }
+    })
+    .then(result => {
+      setAvatarCallback(result.avatar);
+    })
+    .catch((err) => {
+      console.log(err);
+    }); 
   }
 }

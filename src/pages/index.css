@@ -41,3 +41,5 @@
 @import url(../blocks/popup/__submit/_disable/popup__submit_disable.css);
 @import url(../blocks/places/__like-container/places__like-container.css);
 @import url(../blocks/places/__like-number/places__like-number.css);
+@import url(../blocks/profile/__avatar-block/profile__avatar-block.css);
+@import url(../blocks/profile/__avatar-button/profile__avatar-button.css);
