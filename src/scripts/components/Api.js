@@ -4,16 +4,10 @@ export default class Api {
   }
 
   getUserInfo(setUserInfoCallback) {
-    fetch(this._options.baseUrl, {
+    fetch(`${this._options.baseUrl}/users/me`, {
       headers: this._options.headers,
     })
-    .then(res => { 
-      if(res.ok) {
-        return res.json();
-      } else {
-        return Promise.reject(`Ошибка: ${res.status}`);
-      }
-    })
+    .then(res => this._checkAnswer(res))
     .then((result) => {
       const userInformation = {
         fullname: result.name,
@@ -27,16 +21,10 @@ export default class Api {
   }
 
   getInitialCards(createCardCallback) {
-    fetch(this._options.baseUrl, {
+    fetch(`${this._options.baseUrl}/cards`, {
       headers: this._options.headers,
     })
-    .then(res => { 
-      if(res.ok) {
-        return res.json();
-      } else {
-        return Promise.reject(`Ошибка: ${res.status}`);
-      }
-    })
+    .then(res => this._checkAnswer(res))
     .then((result) => {
       createCardCallback(result);
     })
@@ -46,7 +34,7 @@ export default class Api {
   }
 
   setUserInfo(userName, userAbout, renderLoadingCallback) {
-    fetch(this._options.baseUrl, {
+    fetch(`${this._options.baseUrl}/users/me`, {
       method: 'PATCH',
       headers: this._options.headers,
       body: JSON.stringify({
@@ -54,13 +42,7 @@ export default class Api {
         about: userAbout,
       })
     })
-    .then(res => { 
-      if(res.ok) {
-        return res.json();
-      } else {
-        return Promise.reject(`Ошибка: ${res.status}`);
-      }
-    })
+    .then(res => this._checkAnswer(res))
     .catch((err) => {
       console.log(err);
     })
@@ -70,7 +52,7 @@ export default class Api {
   }
 
   addCard(cardName, cardLink, createCardCallback, renderLoadingCallback) {
-    fetch(this._options.baseUrl, {
+    fetch(`${this._options.baseUrl}/cards`, {
       method: 'POST',
       headers: this._options.headers,
       body: JSON.stringify({
@@ -78,13 +60,7 @@ export default class Api {
         link: cardLink,
       })
     })
-    .then(res => { 
-      if(res.ok) {
-        return res.json();
-      } else {
-        return Promise.reject(`Ошибка: ${res.status}`);
-      }
-    })
+    .then(res => this._checkAnswer(res))
     .then((result) => {
       createCardCallback(result);
     })
@@ -97,54 +73,36 @@ export default class Api {
   }
 
   deleteCard(cardId) {
-    fetch(`${this._options.baseUrl}/${cardId}`, {
+    fetch(`${this._options.baseUrl}/cards/${cardId}`, {
       method: 'DELETE',
       headers: this._options.headers,
     })
-    .then(res => { 
-      if(res.ok) {
-        return res.json();
-      } else {
-        return Promise.reject(`Ошибка: ${res.status}`);
-      }
-    })
+    .then(res => this._checkAnswer(res))
     .catch((err) => {
       console.log(err);
     })
   }
 
   likeCard(cardId, method) {
-    fetch(`${this._options.baseUrl}/likes/${cardId}`, {
+    fetch(`${this._options.baseUrl}/cards/likes/${cardId}`, {
       method: method,
       headers: this._options.headers,
     })
-    .then(res => { 
-      if(res.ok) {
-        return res.json();
-      } else {
-        return Promise.reject(`Ошибка: ${res.status}`);
-      }
-    })
+    .then(res => this._checkAnswer(res))
     .catch((err) => {
       console.log(err);
     })
   }
 
   changeAvatar(link, renderLoadingCallback) {
-    fetch(`${this._options.baseUrl}/avatar`, {
+    fetch(`${this._options.baseUrl}/users/me/avatar`, {
       method: 'PATCH',
       headers: this._options.headers,
       body: JSON.stringify({
         avatar: link,
       })
     })
-    .then(res => { 
-      if(res.ok) {
-        return res.json();
-      } else {
-        return Promise.reject(`Ошибка: ${res.status}`);
-      }
-    })
+    .then(res => this._checkAnswer(res))
     .catch((err) => {
       console.log(err);
     })
@@ -154,21 +112,23 @@ export default class Api {
   }
 
   getAvatar(setAvatarCallback) {
-    fetch(`${this._options.baseUrl}`, {
+    fetch(`${this._options.baseUrl}/users/me`, {
       headers: this._options.headers,
     })
-    .then(res => { 
-      if(res.ok) {
-        return res.json();
-      } else {
-        return Promise.reject(`Ошибка: ${res.status}`);
-      }
-    })
+    .then(res => this._checkAnswer(res))
     .then(result => {
       setAvatarCallback(result.avatar);
     })
     .catch((err) => {
       console.log(err);
     }); 
+  }
+
+  _checkAnswer(res) {
+    if(res.ok) {
+      return res.json();
+    } else {
+      return Promise.reject(`Ошибка: ${res.status}`);
+    }
   }
 }

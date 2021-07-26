@@ -61,8 +61,8 @@ export default class Card {
     this._bigImage = document.querySelector('.popup__image');
   }
 
-  _removeCard(e) {
-    e.target.parentElement.remove();
+  removeCard() {
+    this._card.remove();
   }
 
   _handleLikeIcon = () => {
@@ -78,9 +78,7 @@ export default class Card {
     }
   } 
 
-  _handleDeleteCard  = (e) => {
-    // this._removeCard(e);
-
+  _handleDeleteCard  = () => {
     this._handleDeleteLClick();
   }
 

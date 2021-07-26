@@ -21,25 +21,28 @@ import { editButton,
 } from '../scripts/utils/constants.js'
 
 const profileFormValidator = new FormValidator(formParametes, document.querySelector('#popupEdit .popup__form')); 
+profileFormValidator.enableValidation();
 
 const addCardFormValidator = new FormValidator(formParametes, document.querySelector('#popupAdd .popup__form'));
+addCardFormValidator.enableValidation();
 
 const addAvatarFormValidator = new FormValidator(formParametes, document.querySelector('#popupAvatar .popup__form'));
+addAvatarFormValidator.enableValidation();
 
 const userInfo = new UserInfo('.profile__name', '.profile__profession');
 
 const popupEdit= new PopupWithForm('#popupEdit', ( {fullname, job} ) => {
-  userInfo.setUserInfo(fullname, job);
-  apiUserInfo.setUserInfo(fullname, job, (isLoading) => {
+  apiInfo.setUserInfo(fullname, job, (isLoading) => {
     popupEdit.renderLoading(isLoading);
+    userInfo.setUserInfo(fullname, job);
   });
 });
 popupEdit.setEventListeners();
 
 const popupAddCard = new PopupWithForm('#popupAdd', ( {pictureName, link} ) => {
-  apiCardInfo.addCard(pictureName, link, (result) => {
+  apiInfo.addCard(pictureName, link, (result) => {
     const id = result._id;
-    createNewCard(pictureName, link, 0, '#card-template', 'prepend', true, id, false);
+    section.addItem(createNewCard(pictureName, link, 0, '#card-template', 'prepend', true, id, false), 'prepend');
   },
   (isLoading) => {
     popupAddCard.renderLoading(isLoading);
@@ -48,17 +51,17 @@ const popupAddCard = new PopupWithForm('#popupAdd', ( {pictureName, link} ) => {
 popupAddCard.setEventListeners();
 
 const popupDeleteCard = new PopupDelete('#popupDelete', (card, id) => {
-  card.remove();
-  apiCardInfo.deleteCard(id);
+  card.removeCard();
+  apiInfo.deleteCard(id);
 });
 popupDeleteCard.setEventListeners();
 
 const section = new Section('.places');
 
 const popupChangeAvatar = new PopupWithForm('#popupAvatar', ({link}) => {
-  avatar.src = link;
-  apiUserInfo.changeAvatar(link, (isLoading) => {
+  apiInfo.changeAvatar(link, (isLoading) => {
     popupChangeAvatar.renderLoading(isLoading);
+    avatar.src = link;
   });
 })
 popupChangeAvatar.setEventListeners();
@@ -70,17 +73,17 @@ function openEditProfilePopup() {
   const userInfoText = userInfo.getUserInfo();
   nameInput.value = userInfoText.name;
   jobInput.value = userInfoText.job;
-  profileFormValidator.enableValidation();
+  profileFormValidator.setValidation();
   popupEdit.open();
 }
 
 function openAddCardPopup() {
-  addCardFormValidator.enableValidation();
+  addCardFormValidator.setValidation();
   popupAddCard.open();
 }
 
 function openChangeAvatarPopup() {
-  addAvatarFormValidator.enableValidation();
+  addAvatarFormValidator.setValidation();
   popupChangeAvatar.open();
 }
 
@@ -103,14 +106,14 @@ function createNewCard(
       popupImage.open(image);
     }, 
     () => {
-      popupDeleteCard.open(createdCard, cardId);
+      popupDeleteCard.open(card, cardId);
     },
     (method) => {
-      apiCardInfo.likeCard(cardId, method);
+      apiInfo.likeCard(cardId, method);
     },
     isLiked);
   const createdCard = card.createCard();
-  section.addItem(createdCard, method);
+  return createdCard;
 }
 
 editButton.addEventListener('click', openEditProfilePopup);
@@ -119,28 +122,20 @@ addButton.addEventListener('click', openAddCardPopup);
 
 changeAvatarButton.addEventListener('click', openChangeAvatarPopup);
 
-const apiUserInfo= new Api({
-  baseUrl: 'https://nomoreparties.co/v1/cohort-26/users/me',
+const apiInfo= new Api({
+  baseUrl: 'https://nomoreparties.co/v1/cohort-26',
   headers: {
     authorization: 'e21e18fa-ab6d-4a3e-87f4-9a2549a22c3a',
     'Content-Type': 'application/json'
   }
 });
 
-apiUserInfo.getUserInfo(({fullname, job}) => {
+apiInfo.getUserInfo(({fullname, job}) => {
     userInfo.setUserInfo(fullname, job);
   }
 );
 
-const apiCardInfo = new Api({
-  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-26/cards',
-  headers: {
-    authorization: 'e21e18fa-ab6d-4a3e-87f4-9a2549a22c3a',
-    'Content-Type': 'application/json'
-  }
-});
-
-apiCardInfo.getInitialCards((result) => {
+apiInfo.getInitialCards((result) => {
   result.forEach(item => {
     const deleteButtonStatus = item.owner._id === ownerId;
     const cardId = item._id;
@@ -150,7 +145,7 @@ apiCardInfo.getInitialCards((result) => {
         isLiked = true;
       } 
     });
-    createNewCard(
+    section.addItem(createNewCard(
       item.name, 
       item.link, 
       item.likes.length, 
@@ -158,10 +153,10 @@ apiCardInfo.getInitialCards((result) => {
       'append', 
       deleteButtonStatus, 
       cardId, 
-      isLiked);
+      isLiked), 'append');
   })
 })
 
-apiUserInfo.getAvatar((link) => {
+apiInfo.getAvatar((link) => {
   avatar.src = link;
 })

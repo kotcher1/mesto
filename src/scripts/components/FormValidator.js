@@ -67,4 +67,11 @@ export default class FormValidator {
       return !inputElement.validity.valid;
     }); 
   }
+
+  setValidation() {
+    this._inputList.forEach((inputElement) => {
+      this._checkInputValidity(inputElement);
+      this._toggleButtonState();
+    })
+  }
 }
