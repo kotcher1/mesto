@@ -126,7 +126,7 @@ export default class Api {
 
   _checkAnswer(res) {
     if(res.ok) {
-      return res.json();
+      return Promise.resolve(res.json());
     } else {
       return Promise.reject(`Ошибка: ${res.status}`);
     }
