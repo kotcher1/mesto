@@ -15,7 +15,6 @@ import { editButton,
   formParametes,
   nameInput,
   jobInput,
-  ownerId,
   changeAvatarButton,
   avatar,
 } from '../scripts/utils/constants.js'
@@ -160,27 +159,18 @@ const apiInfo= new Api({
   }
 });
 
-apiInfo.getUserInfo()
-  .then(res => {
-    console.log(res);
-    return res.json()})
-  .then((result) => {
-    userInfo.setUserInfo(result.name, result.about);
-    avatar.src = result.avatar;
-  })
-  .catch((err) => {
-    console.log(err);
-  }); 
-
-apiInfo.getInitialCards()
-  .then(res => res.json())
-  .then(result => {
-    result.forEach(item => {
-      const deleteButtonStatus = item.owner._id === ownerId;
+const info = [apiInfo.getUserInfo(), apiInfo.getInitialCards()];
+Promise.all(info)
+  .then(([info, cards]) => {
+    userInfo.setUserInfo(info.name, info.about);
+    avatar.src = info.avatar;
+    const id = info._id;
+    cards.forEach(item => {
+      const deleteButtonStatus = item.owner._id === id;
       const cardId = item._id;
       let isLiked = false;
       item.likes.forEach((item) => {
-        if(item._id === ownerId) {
+        if(item._id === id) {
           isLiked = true;
         } 
       });
@@ -197,7 +187,3 @@ apiInfo.getInitialCards()
   .catch((err) => {
     console.log(err);
   }); 
-
-const info = [apiInfo.getUserInfo(), apiInfo.getInitialCards()];
-Promise.all(info)
-  .then(() => console.log(info[0]))

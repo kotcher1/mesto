@@ -2,7 +2,6 @@ const editButton = document.querySelector('.profile__edit');
 const addButton = document.querySelector('.profile__add');
 const nameInput = document.querySelector('#name');
 const jobInput = document.querySelector('#job');
-const ownerId = '9c69e0a02ff50aa6e32f70ba';
 const changeAvatarButton = document.querySelector('.profile__avatar-button');
 const avatar = document.querySelector('.profile__avatar');
 
@@ -20,7 +19,6 @@ export { editButton,
   formParametes,
   nameInput,
   jobInput,
-  ownerId,
   changeAvatarButton,
   avatar,
 }

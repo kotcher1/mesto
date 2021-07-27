@@ -7,7 +7,8 @@ export default class Api {
     return fetch(`${this._options.baseUrl}/users/me`, {
       headers: this._options.headers,
     })
-    .then((res) => this._checkAnswer(res));
+    .then(res => this._checkAnswer(res))
+    .then(res => this._parseResponse(res))
   }
 
   getInitialCards() {
@@ -15,6 +16,7 @@ export default class Api {
       headers: this._options.headers,
     })
     .then(res => this._checkAnswer(res))
+    .then(res => this._parseResponse(res))
   }
 
   setUserInfo(userName, userAbout) {
@@ -74,5 +76,9 @@ export default class Api {
     } else {
       return Promise.reject(res);
     }
+  }
+
+  _parseResponse(res) {
+    return res.json();
   }
 }
