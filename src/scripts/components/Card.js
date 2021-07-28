@@ -53,13 +53,16 @@ export default class Card {
   }
 
   _handleLikeIcon = () => {
-    this._likeButton.classList.toggle('places__like_liked');
-    if (!this._likeButton.classList.contains('places__like_liked')) {
+    if (this._likeButton.classList.contains('places__like_liked')) {
       this._handleLike('DELETE');
     } else {
       this._handleLike('PUT');
     }
   } 
+
+  toggleLikeButton() {
+    this._likeButton.classList.toggle('places__like_liked');
+  }
 
   deleteLike() {
     this._likes = this._likes - 1;
