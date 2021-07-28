@@ -36,12 +36,12 @@ const popupEdit= new PopupWithForm('#popupEdit', ( {fullname, job} ) => {
     .then(() => {
       userInfo.setUserInfo(fullname, job);
     })
+    .then(() => {
+      popupEdit.close();
+    })
     .catch((err) => {
         console.log(err);
       })
-    .finally(() => {
-      popupEdit.renderLoading(false);
-    })
 });
 popupEdit.setEventListeners();
 
@@ -52,18 +52,23 @@ const popupAddCard = new PopupWithForm('#popupAdd', ( {pictureName, link} ) => {
       const id = result._id;
       section.addItem(createNewCard(pictureName, link, 0, '#card-template', true, id, false), 'prepend');
     })
+    .then(() => {
+      popupAddCard.close();
+    })
     .catch((err) => {
       console.log(err);
-    })
-    .finally(() => {
-      popupAddCard.renderLoading(false);
     })
 });
 popupAddCard.setEventListeners();
 
 const popupDeleteCard = new PopupDelete('#popupDelete', (card, id) => {
-  card.removeCard();
   apiInfo.deleteCard(id)
+    .then(() => {
+      card.removeCard();
+    })
+    .then(() => {
+      popupDeleteCard.close();
+    })
     .catch((err) => {
       console.log(err);
     });
@@ -77,11 +82,11 @@ const popupChangeAvatar = new PopupWithForm('#popupAvatar', ({link}) => {
     .then(() => {
       avatar.src = link;
     })
+    .then(() => {
+      popupChangeAvatar.close();
+    })
     .catch((err) => {
       console.log(err);
-    })
-    .finally(() => {
-      popupChangeAvatar.renderLoading(false);
     })
 })
 popupChangeAvatar.setEventListeners();
@@ -135,6 +140,9 @@ function createNewCard(
           } else {
             card.addLike()
           }
+        })
+        .then(() => {
+          card.toggleLikeButton();
         })
         .catch((err) => {
           console.log(err);

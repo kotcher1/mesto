@@ -1,6 +1,6 @@
 import Popup from './Popup.js'
 
-export default class PopupWithForm extends Popup {
+export default class PopupDelete extends Popup {
   constructor(popupSelector, submit) {
     super(popupSelector);
     this._popup = document.querySelector(this._popupSelector);
@@ -20,6 +20,5 @@ export default class PopupWithForm extends Popup {
 
   _clickButton() {
     this._submit(this._card, this._id);
-    this.close();
   }
 }
