@@ -7,4 +7,4 @@
 
 Технологии: HTML, CSS, JS.
 
-Ссылка на проект: [https://kotcher1.github.io/mesto/index.html]
+Ссылка на проект: [https://kotcher1.github.io/mesto/]
